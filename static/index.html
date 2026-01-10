@@ -8,6 +8,13 @@
 </head>
 <body>
     <h1>Personal Blog</h1>
-    <ul name="blog-posts"></ul>
+    <ul id="articles-list">
+    {{range .Articles}}
+        <li>
+            <h2>{{.Title}}</h2>
+            <p><em>Published on: {{.Date_Published.Format "January 2, 2006"}}</em></p>
+        </li>
+    {{end}}
+    </ul>
 </body>
 </html>

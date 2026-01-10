@@ -49,6 +49,7 @@ func main() {
 	http.HandleFunc("/admin", cfg.handleAdmin)
 	http.HandleFunc("/new", cfg.handleNew)
 	http.HandleFunc("/publish", cfg.handlePublish)
+	http.HandleFunc("/article/{id}/", cfg.handleArticle)
 
 	http.ListenAndServe(":"+cfg.Port, nil)
 }

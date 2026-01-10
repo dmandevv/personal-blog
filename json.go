@@ -11,13 +11,13 @@ func (a *Article) ToJSON() ([]byte, error) {
 	return json.Marshal(a)
 }
 
-func ArticleFromJSON(data []byte) (*Article, error) {
+func ArticleFromJSON(data []byte) (Article, error) {
 	var a Article
 	err := json.Unmarshal(data, &a)
 	if err != nil {
-		return nil, err
+		return a, err
 	}
-	return &a, nil
+	return a, nil
 }
 
 func SaveArticle(article Article, directoryPath, fileName string) error {
@@ -41,18 +41,45 @@ func SaveArticle(article Article, directoryPath, fileName string) error {
 	return nil
 }
 
-func LoadArticle(filePath string) (*Article, error) {
+func LoadArticle(filePath string) (Article, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read JSON file: %w", err)
+		return Article{}, fmt.Errorf("failed to read JSON file: %w", err)
 	}
 
 	article, err := ArticleFromJSON(data)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse JSON data: %w", err)
+		return Article{}, fmt.Errorf("failed to parse JSON data: %w", err)
 	}
 
 	return article, nil
+}
+
+func (cfg *Config) LoadAllArticles() []Article {
+	var articles []Article
+
+	files, err := os.ReadDir(cfg.ArticleDirectory)
+	if err != nil {
+		fmt.Printf("failed to read article directory: %v\n", err)
+		return articles
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+
+		filePath := filepath.Join(cfg.ArticleDirectory, file.Name())
+		article, err := LoadArticle(filePath)
+		if err != nil {
+			fmt.Printf("failed to load article from %s: %v\n", filePath, err)
+			continue
+		}
+
+		articles = append(articles, article)
+	}
+
+	return articles
 }
 
 func (cfg *Config) SaveConfig() error {
