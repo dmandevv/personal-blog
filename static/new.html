@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <button onclick="location.href='/new'">+ Add</button>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>New Article</h1>
+    <form action="/publish" target="/admin" method="post">
+        <input type="text" name="title" placeholder="Article Title"><br><br>
+        <input type="date" value={{.Date}} name="date" placeholder="Publishing Date"><br><br>
+        <input type="text" name="content" placeholder="Content"><br><br>
+        <button type="submit">Publish</button>
+    </form>
+</body>
+</html>
