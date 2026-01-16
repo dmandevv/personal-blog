@@ -1,6 +1,8 @@
 # Personal Blog
 
+Demo: https://personal-blog-81li.onrender.com
 A lightweight, self-hosted personal blog application built with Go. It provides a simple way to write, publish, and manage blog articles with a guest-facing interface and a secure admin panel.
+This project is an exercise from the roadmap.sh project: [https://roadmap.sh/projects/unit-converter](https://roadmap.sh/projects/personal-blog) 📚
 
 ## Features
 
