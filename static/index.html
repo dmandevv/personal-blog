@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div>
-    <h1>Personal Blog</h1>
-    <ul id="home-list">
-    {{range .Articles}}
-        <li>
-            <a id="home-article" href='/article/{{.ID}}'>{{.Title}}</a>
-            <a id="home-date">{{.Date_Published.Format "January 2, 2006"}}</a>
-        </li>
-    {{end}}
-    </ul>
+    <div id="container">
+        <div id="main">
+            <h1>Personal Blog</h1>
+            <ul id="home-list">
+            {{range .Articles}}
+                <li>
+                    <a id="home-article" href='/article/{{.ID}}'>{{.Title}}</a>
+                    <a id="home-date">{{.Date_Published.Format "January 2, 2006"}}</a>
+                </li>
+            {{end}}
+            </ul>
+        </div>
+        <div id="nav">
+            <ul class="button-list">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

@@ -4,14 +4,45 @@ body {
     font-family: "Lucida Handwriting", "Lucida Calligraphy", cursive;
     background-color: #dfdfdf;
     
-    div {
+    div #container {
+    width: 500px;  
+    background-color: #dfdfdf; 
+    }
+    div #main {
     width: 500px;  
     background-color: #dfdfdf;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
-      
+    
+    div #nav {
+    width: 500px;  
+    padding: 30px;
+    }
+    .button-list {
+    list-style-type: none; /* Removes default bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Makes the list items align horizontally */
+    gap: 10px; /* Adds space between the buttons */
+    /* Optional: Center the buttons within the container */
+    justify-content: center;
+    }
+    .button-list li a {
+        display: block; /* Makes the entire link area clickable */
+        padding: 10px 20px; /* Adjusts button size */
+        background-color: #333; /* Button color */
+        color: white; /* Text color */
+        text-decoration: none; /* Removes default link underline */
+        border-radius: 5px; /* Optional: Rounded corners */
+        text-align: center;
+    }
+    .button-list li a:hover {
+        background-color: #555; /* Hover effect color change */
+    }
+
+
     h1 {
     font-weight: bold;   
     text-align: left; 
@@ -85,7 +116,7 @@ body {
     font-weight: bold;
     }
 
-    li a:hover, #add-link:hover {
+    #home-article:hover, #admin-article:hover, #add-link:hover, #edit-link:hover, #delete-link:hover {
     background-origin: padding-box;
     background-color: #d5d5d5;
     border-radius: 5px;

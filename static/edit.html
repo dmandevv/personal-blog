@@ -7,15 +7,23 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div>
-    <h1 id="TITLE">Edit Article</h1>
-    <form action="/update" target="_self" method="post">
-        <input type="hidden" value={{.Article.ID}} name="id">
-        <input type="text" value={{.Article.Title}} name="title" placeholder="Article Title"><br><br>
-        <input type="date" value={{.StringDate}} name="date" placeholder="Publishing Date"><br><br>
-        <textarea id="content-input" name="content" placeholder="Content">{{.Article.Content}}</textarea><br><br>
-        <button type="submit">Update</button>
-    </form>
+    <div id="container">
+        <div id="main">
+        <h1 id="TITLE">Edit Article</h1>
+        <form action="/update" target="_self" method="post">
+            <input type="hidden" value={{.Article.ID}} name="id">
+            <input type="text" value={{.Article.Title}} name="title" placeholder="Article Title"><br><br>
+            <input type="date" value={{.StringDate}} name="date" placeholder="Publishing Date"><br><br>
+            <textarea id="content-input" name="content" placeholder="Content">{{.Article.Content}}</textarea><br><br>
+            <button type="submit">Update</button>
+        </form>
+        </div>
+        <div id="nav">
+            <ul class="button-list">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

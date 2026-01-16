@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div>
-    <h1 id="TITLE">New Article</h1>
-    <form action="/publish" target="_self" method="post">
-        <input type="text" id="title-input" name="title" placeholder="Article Title"><br><br>
-        <input type="date" id="date-input" value={{.Date}} name="date" placeholder="Publishing Date"><br><br>
-        <textarea id="content-input" name="content" placeholder="Content"></textarea><br><br>
-        <button type="submit">Publish</button>
-    </form>
+    <div id="container">
+        <div id="main">
+        <h1 id="TITLE">New Article</h1>
+        <form action="/publish" target="_self" method="post">
+            <input type="text" id="title-input" name="title" placeholder="Article Title"><br><br>
+            <input type="date" id="date-input" value={{.Date}} name="date" placeholder="Publishing Date"><br><br>
+            <textarea id="content-input" name="content" placeholder="Content"></textarea><br><br>
+            <button type="submit">Publish</button>
+        </form>
+        </div>
+        <div id="nav">
+            <ul class="button-list">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>

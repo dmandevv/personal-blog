@@ -7,10 +7,18 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div>
-    <h1>{{.Article.Title}}</h1>
-    <h2>{{.Article.Date_Published.Format "January 2, 2006"}}</h2>
-    <p id="content-input">{{.Article.Content}}</p>
-    </div>
+    <div id="container">
+        <div id="main">
+        <h1>{{.Article.Title}}</h1>
+        <h2>{{.Article.Date_Published.Format "January 2, 2006"}}</h2>
+        <p id="content-input">{{.Article.Content}}</p>
+        </div>
+        <div id="nav">
+            <ul class="button-list">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+        </div>
+    </div> 
 </body>
 </html>

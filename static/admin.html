@@ -7,20 +7,29 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div>
-    <span id="admin-header">    
-        <h1>Personal Blog</h1>
-        <a href='/new' id="add-link">+ Add</a>
-    </span>
-    <ul id="admin-list">
-    {{range .Articles}}
-        <li>
-            <a href='/article/{{.ID}}' id="admin-article" >{{.Title}}</a>
-            <a href='/edit/{{.ID}}' id="edit-link">Edit</a>
-            <a href='/delete/{{.ID}}' id="delete-link">Delete</a>
-        </li>
-    {{end}}
-    </ul>
+    <div id="container">
+        <div id="main">
+        <span id="admin-header">    
+            <h1>Personal Blog</h1>
+            <a href='/new' id="add-link">+ Add</a>
+        </span>
+        <ul id="admin-list">
+        {{range .Articles}}
+            <li>
+                <a href='/article/{{.ID}}' id="admin-article" >{{.Title}}</a>
+                <a href='/edit/{{.ID}}' id="edit-link">Edit</a>
+                <a href='/delete/{{.ID}}' id="delete-link">Delete</a>
+            </li>
+        {{end}}
+        </ul>
+        </div>
+        <div id="nav">
+            <ul class="button-list">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/admin">Admin</a></li>
+            </ul>
+        </div>
     </div>
+    
 </body>
 </html>

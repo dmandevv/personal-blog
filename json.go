@@ -2,7 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io/fs"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -51,6 +54,21 @@ func LoadArticle(filePath string) (Article, error) {
 	}
 
 	return article, nil
+}
+
+func DeleteArticle(filePath string) error {
+	//Check if file exists
+	if _, err := os.Stat(filePath); errors.Is(err, fs.ErrNotExist) {
+		log.Printf("File does not exist: %s\n", filePath)
+		return err
+	}
+	err := os.Remove(filePath)
+	if err != nil {
+		log.Printf("Path error: %s\n", filePath)
+		return err
+	}
+
+	return nil
 }
 
 func (cfg *Config) LoadAllArticles() []Article {

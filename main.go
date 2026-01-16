@@ -27,6 +27,10 @@ func main() {
 		fmt.Println("Missing PORT")
 	}
 
+	adminUsername := os.Getenv("ADMIN_USERNAME")
+	adminPassword := os.Getenv("ADMIN_PASSWORD")
+	adminRealm := os.Getenv("ADMIN_REALM")
+
 	cfg, err := LoadConfig()
 	if err != nil {
 		fmt.Printf("%v - defaulting to .env values\n", err)
@@ -52,11 +56,12 @@ func main() {
 	mux.HandleFunc("/home", cfg.handleHome)
 	mux.HandleFunc("/article/{id...}", cfg.handleArticle)
 
-	mux.HandleFunc("/admin", cfg.handleAdmin)
-	mux.HandleFunc("/new", cfg.handleNew)
-	mux.HandleFunc("/publish", cfg.handlePublish)
-	mux.HandleFunc("/edit/{id...}", cfg.handleEdit)
-	mux.HandleFunc("/update", cfg.handleUpdate)
+	mux.HandleFunc("/admin", cfg.basicAuthMiddleware(cfg.handleAdmin, adminUsername, adminPassword, adminRealm))
+	mux.HandleFunc("/new", cfg.basicAuthMiddleware(cfg.handleNew, adminUsername, adminPassword, adminRealm))
+	mux.HandleFunc("/publish", cfg.basicAuthMiddleware(cfg.handlePublish, adminUsername, adminPassword, adminRealm))
+	mux.HandleFunc("/edit/{id...}", cfg.basicAuthMiddleware(cfg.handleEdit, adminUsername, adminPassword, adminRealm))
+	mux.HandleFunc("/update", cfg.basicAuthMiddleware(cfg.handleUpdate, adminUsername, adminPassword, adminRealm))
+	mux.HandleFunc("/delete/{id...}", cfg.basicAuthMiddleware(cfg.handleDelete, adminUsername, adminPassword, adminRealm))
 
 	http.ListenAndServe(":"+cfg.Port, mux)
 }
