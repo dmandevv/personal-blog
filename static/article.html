@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>{{.Title}}</title>
+    <title>{{.Article.Title}}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>{{.Title}}</h1>
-    <h2>{{.Date_Published.Format "January 2, 2006"}}</h2>
-    <p>{{.Content}}</p>
+    <div>
+    <h1>{{.Article.Title}}</h1>
+    <h2>{{.Article.Date_Published.Format "January 2, 2006"}}</h2>
+    <p id="content-input">{{.Article.Content}}</p>
+    </div>
 </body>
 </html>

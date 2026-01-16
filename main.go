@@ -14,6 +14,8 @@ type Config struct {
 	NextArticleID    int `json:"next_article_id"`
 }
 
+const staticDir = "static"
+
 func main() {
 	godotenv.Load()
 	articleDir, exists := os.LookupEnv("ARTICLE_DIRECTORY")
@@ -39,17 +41,22 @@ func main() {
 		cfg.Port = port
 	}
 
+	mux := http.NewServeMux()
+
 	// Serve static files from the "static" directory
-	fileServer := http.FileServer(http.Dir("./static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	fileServer := http.FileServer(http.Dir(staticDir))
+	mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
 
 	// Simple handler for the root path
-	http.HandleFunc("/", cfg.handleHome)
-	http.HandleFunc("/home", cfg.handleHome)
-	http.HandleFunc("/admin", cfg.handleAdmin)
-	http.HandleFunc("/new", cfg.handleNew)
-	http.HandleFunc("/publish", cfg.handlePublish)
-	http.HandleFunc("/article/{id}/", cfg.handleArticle)
+	mux.HandleFunc("/", cfg.handleHome)
+	mux.HandleFunc("/home", cfg.handleHome)
+	mux.HandleFunc("/article/{id...}", cfg.handleArticle)
 
-	http.ListenAndServe(":"+cfg.Port, nil)
+	mux.HandleFunc("/admin", cfg.handleAdmin)
+	mux.HandleFunc("/new", cfg.handleNew)
+	mux.HandleFunc("/publish", cfg.handlePublish)
+	mux.HandleFunc("/edit/{id...}", cfg.handleEdit)
+	mux.HandleFunc("/update", cfg.handleUpdate)
+
+	http.ListenAndServe(":"+cfg.Port, mux)
 }

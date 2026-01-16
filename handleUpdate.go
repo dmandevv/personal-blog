@@ -3,33 +3,40 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 )
 
-func (cfg *Config) handlePublish(w http.ResponseWriter, r *http.Request) {
+func (cfg *Config) handleUpdate(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
+	id := r.FormValue("id")
 	title := r.FormValue("title")
 	date := r.FormValue("date")
 	content := r.FormValue("content")
 
+	idInt := -1
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		http.Error(w, "Invalid article ID", http.StatusBadRequest)
+		return
+	}
 	dateParsed, _ := time.Parse("2006-01-02", date)
 
 	var article = Article{
-		ID:             cfg.NextArticleID,
+		ID:             idInt,
 		Title:          title,
 		Content:        content,
 		Date_Published: dateParsed,
 	}
 
-	fileName := fmt.Sprintf("article_%d.json", cfg.NextArticleID)
+	fileName := fmt.Sprintf("article_%d.json", idInt)
 
-	err := SaveArticle(article, cfg.ArticleDirectory, fileName)
+	err = SaveArticle(article, cfg.ArticleDirectory, fileName)
 	if err != nil {
 		http.Error(w, "Failed to save article", http.StatusInternalServerError)
 		return
 	}
-	cfg.NextArticleID++
 	cfg.SaveConfig()
 
-	http.Redirect(w, r, "/admin", http.StatusSeeOther)
+	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }

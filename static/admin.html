@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <button onclick="location.href='/new'">+ Add</button>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>Personal Blog</h1>
-    <ul name="blog-posts"></ul>
+    <div>
+    <span id="admin-header">    
+        <h1>Personal Blog</h1>
+        <a href='/new' id="add-link">+ Add</a>
+    </span>
+    <ul id="admin-list">
+    {{range .Articles}}
+        <li>
+            <a href='/article/{{.ID}}' id="admin-article" >{{.Title}}</a>
+            <a href='/edit/{{.ID}}' id="edit-link">Edit</a>
+            <a href='/delete/{{.ID}}' id="delete-link">Delete</a>
+        </li>
+    {{end}}
+    </ul>
+    </div>
 </body>
 </html>

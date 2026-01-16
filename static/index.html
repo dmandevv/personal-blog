@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+    <div>
     <h1>Personal Blog</h1>
-    <ul id="articles-list">
+    <ul id="home-list">
     {{range .Articles}}
         <li>
-            <h2>{{.Title}}</h2>
-            <p><em>Published on: {{.Date_Published.Format "January 2, 2006"}}</em></p>
+            <a id="home-article" href='/article/{{.ID}}'>{{.Title}}</a>
+            <a id="home-date">{{.Date_Published.Format "January 2, 2006"}}</a>
         </li>
     {{end}}
     </ul>
+    </div>
 </body>
 </html>

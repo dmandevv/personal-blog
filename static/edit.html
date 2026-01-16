@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Article</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div>
+    <h1 id="TITLE">Edit Article</h1>
+    <form action="/update" target="_self" method="post">
+        <input type="hidden" value={{.Article.ID}} name="id">
+        <input type="text" value={{.Article.Title}} name="title" placeholder="Article Title"><br><br>
+        <input type="date" value={{.StringDate}} name="date" placeholder="Publishing Date"><br><br>
+        <textarea id="content-input" name="content" placeholder="Content">{{.Article.Content}}</textarea><br><br>
+        <button type="submit">Update</button>
+    </form>
+    </div>
+</body>
+</html>

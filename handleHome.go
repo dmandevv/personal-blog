@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -12,15 +14,19 @@ func (cfg *Config) handleHome(w http.ResponseWriter, r *http.Request) {
 		Articles: cfg.LoadAllArticles(),
 	}
 
-	template, err := template.ParseFiles("./static/index.html")
+	tmpl, err := template.ParseFiles("./static/index.html")
 	if err != nil {
 		http.Error(w, "Failed to parse template", http.StatusInternalServerError)
 		return
 	}
 
-	err = template.Execute(w, data)
+	var buf bytes.Buffer
+	err = tmpl.Execute(&buf, data)
 	if err != nil {
-		http.Error(w, "Failed to execute template", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Failed to execute template:%v", err), http.StatusInternalServerError)
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
+	w.Write(buf.Bytes())
+
 }

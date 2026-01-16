@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func (cfg *Config) handleArticle(w http.ResponseWriter, r *http.Request) {
+func (cfg *Config) handleEdit(w http.ResponseWriter, r *http.Request) {
 
 	id := r.PathValue("id")
 	articlePath := filepath.Join(cfg.ArticleDirectory, "article_"+id+".json")
@@ -19,12 +19,14 @@ func (cfg *Config) handleArticle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Article Article
+		Article    Article
+		StringDate string
 	}{
-		Article: article,
+		Article:    article,
+		StringDate: article.Date_Published.Format("2006-01-02"),
 	}
 
-	tmpl, err := template.ParseFiles("./static/article.html")
+	tmpl, err := template.ParseFiles("./static/edit.html")
 	if err != nil {
 		http.Error(w, "Failed to parse template", http.StatusInternalServerError)
 		return

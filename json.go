@@ -21,19 +21,17 @@ func ArticleFromJSON(data []byte) (Article, error) {
 }
 
 func SaveArticle(article Article, directoryPath, fileName string) error {
-
 	// Ensure the directory exists
 	if err := os.MkdirAll(directoryPath, os.ModePerm); err != nil {
 		return fmt.Errorf("failed to create directory: %w", err)
 	}
-
-	filePath := filepath.Join(directoryPath, fileName)
 
 	jsonData, err := article.ToJSON()
 	if err != nil {
 		return fmt.Errorf("failed to convert article to JSON: %w", err)
 	}
 
+	filePath := filepath.Join(directoryPath, fileName)
 	if err := os.WriteFile(filePath, jsonData, 0644); err != nil {
 		return fmt.Errorf("failed to write JSON file: %w", err)
 	}
