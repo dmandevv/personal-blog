@@ -5,11 +5,11 @@ body {
     background-color: #dfdfdf;
     
     div #container {
-    width: 500px;  
+    width: 600px;  
     background-color: #dfdfdf; 
     }
     div #main {
-    width: 500px;  
+    width: 600px;  
     background-color: #dfdfdf;
     padding: 30px;
     border-radius: 15px;
@@ -17,7 +17,7 @@ body {
     }
     
     div #nav {
-    width: 500px;  
+    width: 600px;  
     padding: 30px;
     }
     .button-list {
